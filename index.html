@@ -30,7 +30,6 @@
       padding: 28px;
       border-radius: 16px;
       margin-bottom: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
 
     .header h1 {
@@ -45,7 +44,7 @@
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 15px;
       margin-bottom: 25px;
     }
@@ -167,12 +166,7 @@
       color: #991b1b;
     }
 
-    .loading {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
-    }
-
+    .loading,
     .empty {
       text-align: center;
       padding: 30px;
@@ -243,7 +237,17 @@
       font-family: Arial, sans-serif;
     }
 
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 600px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
       .header h1 {
         font-size: 24px;
       }
@@ -252,7 +256,6 @@
         padding: 15px;
       }
     }
-
   </style>
 </head>
 
@@ -262,59 +265,55 @@
 
     <div class="header">
       <h1>📊 Dashboard Monitoring Aset</h1>
-      <p>Monitoring kondisi dan status data aset secara real-time</p>
+      <p>Monitoring kondisi dan status data aset</p>
     </div>
 
+    <!-- STATISTIK -->
 
     <div class="cards">
 
       <div class="card">
-        <h3>Total Aset</h3>
+        <h3>📦 Total Aset</h3>
         <div class="number" id="totalAset">0</div>
       </div>
 
       <div class="card">
-        <h3>Normal</h3>
+        <h3>✅ Normal</h3>
         <div class="number" id="totalNormal">0</div>
       </div>
 
       <div class="card">
-        <h3>Perlu Dicek</h3>
+        <h3>🔧 Maintenance</h3>
         <div class="number" id="totalWarning">0</div>
       </div>
 
       <div class="card">
-        <h3>Overdue</h3>
+        <h3>⚠️ Overdue / Rusak</h3>
         <div class="number" id="totalOverdue">0</div>
       </div>
 
     </div>
 
+    <!-- SEARCH DAN LAPOR -->
 
     <div class="controls">
 
       <input
         type="text"
         id="searchInput"
-        placeholder="🔍 Cari aset..."
+        placeholder="🔍 Cari ID, nama aset, kondisi, atau status..."
       >
-
-      <select id="filterStatus">
-        <option value="">Semua Status</option>
-        <option value="NORMAL">NORMAL</option>
-        <option value="H-4">H-4</option>
-        <option value="OVERDUE">OVERDUE</option>
-      </select>
 
       <button
-        class="btn-primary"
-        onclick="ambilData()"
+        class="btn-danger"
+        onclick="bukaLaporan()"
       >
-        🔄 Refresh
+        ⚠️ Lapor Kerusakan
       </button>
 
     </div>
 
+    <!-- TABEL -->
 
     <div class="table-box">
 
@@ -322,23 +321,19 @@
 
         <thead>
           <tr>
-            <th>No</th>
-            <th>Nama Aset</th>
-            <th>Kode Aset</th>
-            <th>Tanggal</th>
-            <th>Status</th>
-            <th>Alert</th>
-            <th>Aksi</th>
+            <th>🏷 Asset ID</th>
+            <th>📦 Nama Barang</th>
+            <th>♡ Kondisi</th>
+            <th>📅 Tanggal Periksa</th>
+            <th>⚑ Status</th>
+            <th>🔔 Alert</th>
           </tr>
         </thead>
 
         <tbody id="tabelData">
 
           <tr>
-            <td
-              colspan="7"
-              class="loading"
-            >
+            <td colspan="6" class="loading">
               Memuat data...
             </td>
           </tr>
@@ -349,22 +344,21 @@
 
     </div>
 
+    <p style="text-align:center; color:#64748b; margin-top:20px;">
+      🕒 Update terakhir: <span id="updateTerakhir">Memuat...</span>
+    </p>
+
   </div>
-
-
 
   <!-- MODAL LAPORAN -->
 
-  <div
-    id="modalLaporan"
-    class="modal"
-  >
+  <div id="modalLaporan" class="modal">
 
     <div class="modal-content">
 
       <div class="modal-header">
 
-        <h2>📝 Lapor Kondisi Aset</h2>
+        <h2>⚠️ Lapor Kerusakan</h2>
 
         <span
           class="close"
@@ -375,32 +369,27 @@
 
       </div>
 
-
       <div class="form-group">
 
-        <label>Nama Aset</label>
+        <label>Pilih Aset</label>
 
-        <input
-          type="text"
-          id="laporNamaAset"
-          readonly
-        >
+        <select id="laporIdAset">
+          <option value="">-- Pilih Aset --</option>
+        </select>
 
       </div>
 
-
       <div class="form-group">
 
-        <label>Kode Aset</label>
+        <label>Nama Pelapor</label>
 
         <input
           type="text"
-          id="laporKodeAset"
-          readonly
+          id="laporNamaPelapor"
+          placeholder="Masukkan nama kamu"
         >
 
       </div>
-
 
       <div class="form-group">
 
@@ -408,34 +397,28 @@
 
         <select id="laporKondisi">
 
-          <option value="Baik">
-            Baik
-          </option>
-
-          <option value="Rusak Ringan">
-            Rusak Ringan
-          </option>
-
           <option value="Rusak">
             Rusak
+          </option>
+
+          <option value="Perlu Maintenance">
+            Perlu Maintenance
           </option>
 
         </select>
 
       </div>
 
-
       <div class="form-group">
 
-        <label>Keterangan</label>
+        <label>Deskripsi Kerusakan</label>
 
         <textarea
           id="laporKeterangan"
-          placeholder="Masukkan keterangan..."
+          placeholder="Jelaskan kerusakan aset..."
         ></textarea>
 
       </div>
-
 
       <button
         class="btn-primary"
@@ -448,53 +431,38 @@
 
   </div>
 
-
-
   <script>
 
     // =====================================
-    // LINK GOOGLE APPS SCRIPT
+    // URL GOOGLE APPS SCRIPT BARU
     // =====================================
 
-    const API_URL =
-      "https://script.google.com/macros/s/AKfycbxx1unGPnfnuSLE_muXYrbzHKMwT0i_4f92aaPGDBcUFnU10B7RsZyLoLaBSr_qhqb1/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbzZjAQIiBnaps-oCEZV89ISiu9tlzyrv2Y_RJLMXXcp5HEUvMbTPfWopeECnNonqaGH/exec";
 
 
     let semuaData = [];
 
 
-
     // =====================================
-    // AMBIL DATA DARI GOOGLE SHEETS
+    // AMBIL DATA DARI APPS SCRIPT
     // =====================================
 
     async function ambilData() {
 
       const tabel =
-        document.getElementById(
-          "tabelData"
-        );
-
-
-      tabel.innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="7"
-            class="loading"
-          >
-
-            Memuat data...
-
-          </td>
-
-        </tr>
-
-      `;
+        document.getElementById("tabelData");
 
 
       try {
+
+        tabel.innerHTML = `
+          <tr>
+            <td colspan="6" class="loading">
+              Memuat data...
+            </td>
+          </tr>
+        `;
+
 
         const response =
           await fetch(API_URL);
@@ -504,321 +472,254 @@
           await response.json();
 
 
-        console.log(
-          "Data dari API:",
-          hasil
-        );
+        console.log("Data API:", hasil);
 
 
-        if (
-          Array.isArray(hasil)
-        ) {
+        if (Array.isArray(hasil)) {
 
-          semuaData =
-            hasil;
+          semuaData = hasil;
 
-        }
+        } else if (hasil.data) {
 
-        else if (
-          hasil.data
-        ) {
+          semuaData = hasil.data;
 
-          semuaData =
-            hasil.data;
+        } else {
 
-        }
-
-        else {
-
-          semuaData =
-            [];
+          semuaData = [];
 
         }
 
 
-        tampilkanData(
-          semuaData
-        );
+        tampilkanData(semuaData);
+
+        updateStatistik(hasil);
+
+        isiPilihanAset();
+
+        document.getElementById(
+          "updateTerakhir"
+        ).textContent =
+          hasil.updateTerakhir ||
+          new Date().toLocaleString("id-ID");
 
 
-        updateStatistik();
+      } catch (error) {
 
-      }
-
-
-      catch (error) {
-
-        console.error(
-          error
-        );
+        console.error(error);
 
 
         tabel.innerHTML = `
-
           <tr>
-
-            <td
-              colspan="7"
-              class="empty"
-            >
-
+            <td colspan="6" class="empty">
               ❌ Gagal mengambil data.
-              Silakan cek koneksi atau Apps Script.
-
+              Silakan cek Apps Script.
             </td>
-
           </tr>
-
         `;
 
       }
 
     }
-
 
 
     // =====================================
     // TAMPILKAN DATA
     // =====================================
 
-    function tampilkanData(
-      data
-    ) {
+    function tampilkanData(data) {
 
       const tabel =
-        document.getElementById(
-          "tabelData"
-        );
+        document.getElementById("tabelData");
 
 
-      tabel.innerHTML =
-        "";
+      tabel.innerHTML = "";
 
 
-      if (
-        !data ||
-        data.length === 0
-      ) {
+      if (!data || data.length === 0) {
 
         tabel.innerHTML = `
-
           <tr>
-
-            <td
-              colspan="7"
-              class="empty"
-            >
-
+            <td colspan="6" class="empty">
               Tidak ada data.
-
             </td>
-
           </tr>
-
         `;
-
 
         return;
 
       }
 
 
-      data.forEach(
-        function(
-          item,
-          index
+      data.forEach(function(aset) {
+
+        const id =
+          aset.id ||
+          aset.assetId ||
+          "-";
+
+
+        const nama =
+          aset.nama ||
+          aset.namaAset ||
+          "-";
+
+
+        const kondisi =
+          aset.kondisi ||
+          "-";
+
+
+        const tanggal =
+          aset.tanggalPeriksa ||
+          aset.tanggal ||
+          "-";
+
+
+        const status =
+          aset.status ||
+          "-";
+
+
+        const alert =
+          aset.alert ||
+          "-";
+
+
+        let statusClass =
+          "normal";
+
+
+        const statusUpper =
+          String(status).toUpperCase();
+
+
+        if (
+          statusUpper.includes("MAINTENANCE")
         ) {
 
-          const nama =
-            item.namaAset ||
-            item.nama ||
-            item["Nama Aset"] ||
-            "-";
-
-
-          const kode =
-            item.kodeAset ||
-            item.kode ||
-            item["Kode Aset"] ||
-            "-";
-
-
-          const tanggal =
-            item.tanggal ||
-            item["Tanggal"] ||
-            "-";
-
-
-          const status =
-            item.status ||
-            item["Status"] ||
-            "-";
-
-
-          const alert =
-            item.alert ||
-            item["Alert"] ||
-            "-";
-
-
-          let kelasStatus =
-            "normal";
-
-
-          if (
-            String(status)
-              .toUpperCase()
-              .includes("OVERDUE")
-          ) {
-
-            kelasStatus =
-              "overdue";
-
-          }
-
-          else if (
-            String(status)
-              .toUpperCase()
-              .includes("H-")
-          ) {
-
-            kelasStatus =
-              "warning";
-
-          }
-
-
-          tabel.innerHTML += `
-
-            <tr>
-
-              <td>
-                ${index + 1}
-              </td>
-
-              <td>
-                ${nama}
-              </td>
-
-              <td>
-                ${kode}
-              </td>
-
-              <td>
-                ${tanggal}
-              </td>
-
-              <td>
-
-                <span
-                  class="badge ${kelasStatus}"
-                >
-
-                  ${status}
-
-                </span>
-
-              </td>
-
-              <td>
-                ${alert}
-              </td>
-
-              <td>
-
-                <button
-                  class="btn-danger"
-                  onclick='bukaLaporan(
-                    ${JSON.stringify(
-                      String(nama)
-                    )},
-                    ${JSON.stringify(
-                      String(kode)
-                    )}
-                  )'
-                >
-
-                  Lapor
-
-                </button>
-
-              </td>
-
-            </tr>
-
-          `;
+          statusClass =
+            "warning";
 
         }
 
-      );
+
+        if (
+          statusUpper.includes("OVERDUE") ||
+          String(kondisi).toLowerCase().includes("rusak") ||
+          String(kondisi).toLowerCase().includes("broken")
+        ) {
+
+          statusClass =
+            "overdue";
+
+        }
+
+
+        tabel.innerHTML += `
+
+          <tr>
+
+            <td>${id}</td>
+
+            <td>${nama}</td>
+
+            <td>${kondisi}</td>
+
+            <td>${tanggal}</td>
+
+            <td>
+              <span class="badge ${statusClass}">
+                ${status}
+              </span>
+            </td>
+
+            <td>${alert}</td>
+
+          </tr>
+
+        `;
+
+      });
 
     }
-
 
 
     // =====================================
     // UPDATE STATISTIK
     // =====================================
 
-    function updateStatistik() {
+    function updateStatistik(hasil) {
+
+      if (hasil.statistik) {
+
+        document.getElementById(
+          "totalAset"
+        ).textContent =
+          hasil.statistik.total || 0;
+
+
+        document.getElementById(
+          "totalNormal"
+        ).textContent =
+          hasil.statistik.normal || 0;
+
+
+        document.getElementById(
+          "totalWarning"
+        ).textContent =
+          hasil.statistik.maintenance || 0;
+
+
+        document.getElementById(
+          "totalOverdue"
+        ).textContent =
+          hasil.statistik.overdue || 0;
+
+        return;
+
+      }
+
 
       const total =
         semuaData.length;
 
 
-      let normal =
-        0;
+      let normal = 0;
+      let maintenance = 0;
+      let overdue = 0;
 
 
-      let warning =
-        0;
+      semuaData.forEach(function(aset) {
+
+        const status =
+          String(aset.status || "").toLowerCase();
+
+        const kondisi =
+          String(aset.kondisi || "").toLowerCase();
 
 
-      let overdue =
-        0;
+        if (
+          status.includes("overdue") ||
+          kondisi.includes("rusak") ||
+          kondisi.includes("broken")
+        ) {
 
+          overdue++;
 
-      semuaData.forEach(
-        function(item) {
+        } else if (
+          status.includes("maintenance") ||
+          kondisi.includes("maintenance")
+        ) {
 
-          const status =
-            String(
-              item.status ||
-              item["Status"] ||
-              ""
-            )
-            .toUpperCase();
+          maintenance++;
 
+        } else {
 
-          if (
-            status.includes(
-              "NORMAL"
-            )
-          ) {
-
-            normal++;
-
-          }
-
-          else if (
-            status.includes(
-              "OVERDUE"
-            )
-          ) {
-
-            overdue++;
-
-          }
-
-          else {
-
-            warning++;
-
-          }
+          normal++;
 
         }
 
-      );
+      });
 
 
       document.getElementById(
@@ -836,7 +737,7 @@
       document.getElementById(
         "totalWarning"
       ).textContent =
-        warning;
+        maintenance;
 
 
       document.getElementById(
@@ -847,118 +748,102 @@
     }
 
 
-
     // =====================================
-    // FILTER & SEARCH
+    // SEARCH
     // =====================================
 
-    document.getElementById(
-      "searchInput"
-    ).addEventListener(
-      "input",
-      filterData
-    );
+    document
+      .getElementById("searchInput")
+      .addEventListener(
+        "input",
+        function() {
+
+          const kata =
+            this.value.toLowerCase();
 
 
-    document.getElementById(
-      "filterStatus"
-    ).addEventListener(
-      "change",
-      filterData
-    );
+          const hasil =
+            semuaData.filter(function(aset) {
 
+              return (
+                String(aset.id || "")
+                  .toLowerCase()
+                  .includes(kata)
 
+                ||
 
-    function filterData() {
+                String(aset.nama || "")
+                  .toLowerCase()
+                  .includes(kata)
 
-      const kata =
-        document
-          .getElementById(
-            "searchInput"
-          )
-          .value
-          .toLowerCase();
+                ||
 
+                String(aset.kondisi || "")
+                  .toLowerCase()
+                  .includes(kata)
 
-      const statusFilter =
-        document
-          .getElementById(
-            "filterStatus"
-          )
-          .value
-          .toUpperCase();
+                ||
 
-
-      const hasil =
-        semuaData.filter(
-          function(item) {
-
-            const teks =
-              JSON.stringify(
-                item
-              )
-              .toLowerCase();
-
-
-            const status =
-              String(
-                item.status ||
-                item["Status"] ||
-                ""
-              )
-              .toUpperCase();
-
-
-            const cocokCari =
-              teks.includes(
-                kata
+                String(aset.status || "")
+                  .toLowerCase()
+                  .includes(kata)
               );
 
-
-            const cocokStatus =
-              !statusFilter ||
-              status ===
-              statusFilter;
+            });
 
 
-            return (
-              cocokCari &&
-              cocokStatus
-            );
+          tampilkanData(hasil);
 
-          }
-
-        );
-
-
-      tampilkanData(
-        hasil
+        }
       );
 
-    }
 
+    // =====================================
+    // ISI PILIHAN ASET
+    // =====================================
+
+    function isiPilihanAset() {
+
+      const pilihan =
+        document.getElementById("laporIdAset");
+
+
+      pilihan.innerHTML =
+        `<option value="">-- Pilih Aset --</option>`;
+
+
+      semuaData.forEach(function(aset) {
+
+        const id =
+          aset.id ||
+          aset.assetId ||
+          "";
+
+
+        const nama =
+          aset.nama ||
+          aset.namaAset ||
+          "";
+
+
+        pilihan.innerHTML += `
+
+          <option value="${id}">
+            ${id} - ${nama}
+          </option>
+
+        `;
+
+      });
+
+    }
 
 
     // =====================================
     // BUKA LAPORAN
     // =====================================
 
-    function bukaLaporan(
-      nama,
-      kode
-    ) {
-
-      document.getElementById(
-        "laporNamaAset"
-      ).value =
-        nama;
-
-
-      document.getElementById(
-        "laporKodeAset"
-      ).value =
-        kode;
-
+    function bukaLaporan() {
 
       document.getElementById(
         "modalLaporan"
@@ -966,7 +851,6 @@
         "block";
 
     }
-
 
 
     // =====================================
@@ -983,41 +867,67 @@
     }
 
 
-
     // =====================================
     // KIRIM LAPORAN
     // =====================================
 
     async function kirimLaporan() {
 
+      const idAset =
+        document.getElementById(
+          "laporIdAset"
+        ).value;
+
+
+      const namaPelapor =
+        document.getElementById(
+          "laporNamaPelapor"
+        ).value;
+
+
+      const kondisi =
+        document.getElementById(
+          "laporKondisi"
+        ).value;
+
+
+      const keterangan =
+        document.getElementById(
+          "laporKeterangan"
+        ).value;
+
+
+      if (
+        !idAset ||
+        !namaPelapor ||
+        !keterangan
+      ) {
+
+        alert(
+          "Mohon lengkapi laporan terlebih dahulu."
+        );
+
+        return;
+
+      }
+
+
       const dataLaporan = {
 
         action:
           "lapor",
 
+        idAset:
+          idAset,
 
-        namaAset:
-          document.getElementById(
-            "laporNamaAset"
-          ).value,
-
-
-        kodeAset:
-          document.getElementById(
-            "laporKodeAset"
-          ).value,
-
+        namaPelapor:
+          namaPelapor,
 
         kondisi:
-          document.getElementById(
-            "laporKondisi"
-          ).value,
-
+          kondisi,
 
         keterangan:
-          document.getElementById(
-            "laporKeterangan"
-          ).value
+          keterangan
 
       };
 
@@ -1038,9 +948,7 @@
               },
 
               body:
-                JSON.stringify(
-                  dataLaporan
-                )
+                JSON.stringify(dataLaporan)
 
             }
           );
@@ -1050,9 +958,7 @@
           await response.json();
 
 
-        if (
-          hasil.success
-        ) {
+        if (hasil.success) {
 
           alert(
             "✅ Laporan berhasil dikirim!"
@@ -1062,33 +968,35 @@
           tutupLaporan();
 
 
+          document.getElementById(
+            "laporNamaPelapor"
+          ).value =
+            "";
+
+
+          document.getElementById(
+            "laporKeterangan"
+          ).value =
+            "";
+
+
           ambilData();
 
-        }
-
-        else {
+        } else {
 
           alert(
             "❌ " +
             (
               hasil.message ||
-              "Laporan gagal dikirim"
+              "Laporan gagal dikirim."
             )
           );
 
         }
 
-      }
+      } catch (error) {
 
-
-      catch (
-        error
-      ) {
-
-        console.error(
-          error
-        );
-
+        console.error(error);
 
         alert(
           "❌ Terjadi kesalahan saat mengirim laporan."
@@ -1099,13 +1007,11 @@
     }
 
 
-
     // =====================================
-    // MULAI AMBIL DATA
+    // MULAI
     // =====================================
 
     ambilData();
-
 
   </script>
 
