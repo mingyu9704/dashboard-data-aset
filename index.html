@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
 
@@ -8,13 +9,14 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Dashboard Data Aset</title>
+  <title>Dashboard Monitoring Aset</title>
 
   <style>
 
     * {
       box-sizing: border-box;
     }
+
 
     body {
       margin: 0;
@@ -23,13 +25,17 @@
       color: #24324a;
     }
 
+
     .container {
       max-width: 1300px;
       margin: auto;
       padding: 30px 20px;
     }
 
-    /* HEADER */
+
+    /* =========================
+       HEADER
+    ========================= */
 
     .header {
       background: linear-gradient(
@@ -37,219 +43,355 @@
         #2563eb,
         #1e40af
       );
+
       color: white;
+
       padding: 28px;
+
       border-radius: 16px;
+
       margin-bottom: 25px;
     }
+
 
     .header h1 {
       margin: 0 0 8px;
       font-size: 30px;
     }
 
+
     .header p {
       margin: 0;
       opacity: 0.9;
     }
 
-    /* STATISTIK */
+
+    /* =========================
+       STATISTIK
+    ========================= */
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 20px;
+
       margin-bottom: 25px;
     }
 
+
     .card {
       background: white;
+
       padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+
+      border-radius: 16px;
+
+      box-shadow:
+        0 4px 14px
+        rgba(0,0,0,0.07);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
     }
+
+
+    .card:hover {
+      transform:
+        translateY(-5px);
+
+      box-shadow:
+        0 10px 25px
+        rgba(0,0,0,0.12);
+    }
+
 
     .card h3 {
       margin: 0;
-      font-size: 14px;
+
+      font-size: 16px;
+
       color: #64748b;
     }
 
+
     .card .number {
-      font-size: 30px;
+      font-size: 40px;
+
       font-weight: bold;
-      margin-top: 10px;
+
+      margin-top: 15px;
+
+      color: #24324a;
     }
 
-    /* CONTROL */
+
+    /* =========================
+       CONTROL
+    ========================= */
 
     .controls {
       display: flex;
+
       gap: 12px;
+
       flex-wrap: wrap;
+
       margin-bottom: 20px;
     }
+
 
     input,
     select,
     button {
       padding: 12px 14px;
+
       border-radius: 8px;
+
       font-size: 14px;
     }
 
+
     input,
     select {
-      border: 1px solid #d1d5db;
+      border:
+        1px solid #d1d5db;
+
       background: white;
     }
 
+
     #searchInput {
       flex: 1;
+
       min-width: 220px;
     }
 
+
     button {
       border: none;
+
       cursor: pointer;
+
       font-weight: bold;
     }
 
-    button:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
 
     .btn-primary {
       background: #2563eb;
       color: white;
     }
 
-    .btn-primary:hover:not(:disabled) {
+
+    .btn-primary:hover {
       background: #1d4ed8;
     }
+
 
     .btn-danger {
       background: #dc2626;
       color: white;
     }
 
+
     .btn-danger:hover {
       background: #b91c1c;
     }
 
-    /* TABEL */
+
+    /* =========================
+       TABEL
+    ========================= */
 
     .table-box {
       background: white;
+
       border-radius: 14px;
+
       overflow-x: auto;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+
+      box-shadow:
+        0 4px 14px
+        rgba(0,0,0,0.07);
     }
+
 
     table {
       width: 100%;
+
       border-collapse: collapse;
+
       min-width: 850px;
     }
 
+
     th {
       background: #eff6ff;
+
       text-align: left;
+
       padding: 14px;
+
       color: #1e3a8a;
     }
 
+
     td {
       padding: 13px 14px;
-      border-top: 1px solid #e5e7eb;
+
+      border-top:
+        1px solid #e5e7eb;
     }
+
 
     tr:hover {
       background: #f8fafc;
     }
 
-    /* BADGE */
+
+    /* =========================
+       BADGE
+    ========================= */
 
     .badge {
       padding: 6px 10px;
+
       border-radius: 20px;
+
       font-size: 12px;
+
       font-weight: bold;
+
       display: inline-block;
     }
+
 
     .normal {
       background: #dcfce7;
       color: #166534;
     }
 
+
     .warning {
       background: #fef3c7;
       color: #92400e;
     }
+
 
     .overdue {
       background: #fee2e2;
       color: #991b1b;
     }
 
+
     .loading,
     .empty {
       text-align: center;
+
       padding: 30px;
+
       color: #64748b;
     }
 
-    /* MODAL */
+
+    /* =========================
+       MODAL
+    ========================= */
 
     .modal {
       display: none;
+
       position: fixed;
+
       z-index: 1000;
+
       left: 0;
       top: 0;
+
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.55);
+
+      background:
+        rgba(0,0,0,0.55);
+
       padding: 20px;
+
       overflow: auto;
     }
 
+
     .modal-content {
       background: white;
+
       max-width: 550px;
+
       margin: 50px auto;
+
       padding: 25px;
+
       border-radius: 16px;
     }
 
+
+    .modal-large {
+      max-width: 1000px;
+    }
+
+
     .modal-header {
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       margin-bottom: 20px;
     }
+
 
     .modal-header h2 {
       margin: 0;
     }
 
+
     .close {
-      font-size: 28px;
+      font-size: 30px;
+
       cursor: pointer;
+
       color: #64748b;
+
+      font-weight: bold;
     }
+
+
+    .close:hover {
+      color: #dc2626;
+    }
+
+
+    /* =========================
+       FORM
+    ========================= */
 
     .form-group {
       margin-bottom: 15px;
     }
 
+
     .form-group label {
       display: block;
+
       margin-bottom: 7px;
+
       font-weight: bold;
     }
+
 
     .form-group input,
     .form-group textarea,
@@ -257,71 +399,121 @@
       width: 100%;
     }
 
+
     textarea {
       min-height: 100px;
+
       padding: 12px;
-      border: 1px solid #d1d5db;
+
+      border:
+        1px solid #d1d5db;
+
       border-radius: 8px;
-      font-family: Arial, sans-serif;
+
+      font-family:
+        Arial, sans-serif;
     }
 
-    /* FOTO */
+
+    /* =========================
+       FOTO
+    ========================= */
 
     #previewContainer {
       display: none;
+
       margin-top: 12px;
     }
 
+
     #previewFoto {
       width: 100%;
+
       max-height: 250px;
+
       object-fit: contain;
+
       border-radius: 10px;
-      border: 1px solid #d1d5db;
+
+      border:
+        1px solid #d1d5db;
+
       background: #f8fafc;
     }
 
+
     .info-foto {
       font-size: 12px;
+
       color: #64748b;
+
       margin-top: 6px;
     }
 
-    /* RESPONSIVE */
+
+    /* =========================
+       DAFTAR ASET MODAL
+    ========================= */
+
+    .info-list {
+      color: #64748b;
+
+      margin-bottom: 15px;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
 
     @media (max-width: 900px) {
 
       .cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, 1fr);
       }
 
     }
 
+
     @media (max-width: 600px) {
 
       .cards {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          1fr;
       }
+
 
       .header h1 {
         font-size: 24px;
       }
 
+
       .container {
         padding: 15px;
+      }
+
+
+      .modal-content {
+        margin: 20px auto;
       }
 
     }
 
   </style>
+
 </head>
 
 
 <body>
 
+
   <div class="container">
 
-    <!-- HEADER -->
+
+    <!-- =====================
+         HEADER
+    ====================== -->
 
     <div class="header">
 
@@ -336,36 +528,111 @@
     </div>
 
 
-    <!-- STATISTIK -->
+
+    <!-- =====================
+         STATISTIK
+    ====================== -->
 
     <div class="cards">
 
-      <div class="card">
-        <h3>📦 Total Aset</h3>
-        <div class="number" id="totalAset">0</div>
+
+      <!-- TOTAL ASET -->
+
+      <div
+        class="card"
+        onclick="bukaDaftarAset('total')"
+      >
+
+        <h3>
+          📦 Total Aset
+        </h3>
+
+        <div
+          class="number"
+          id="totalAset"
+        >
+          0
+        </div>
+
       </div>
 
-      <div class="card">
-        <h3>✅ Normal</h3>
-        <div class="number" id="totalNormal">0</div>
+
+
+      <!-- NORMAL -->
+
+      <div
+        class="card"
+        onclick="bukaDaftarAset('normal')"
+      >
+
+        <h3>
+          ✅ Normal
+        </h3>
+
+        <div
+          class="number"
+          id="totalNormal"
+        >
+          0
+        </div>
+
       </div>
 
-      <div class="card">
-        <h3>🔧 Maintenance</h3>
-        <div class="number" id="totalWarning">0</div>
+
+
+      <!-- MAINTENANCE -->
+
+      <div
+        class="card"
+        onclick="bukaDaftarAset('maintenance')"
+      >
+
+        <h3>
+          🔧 Maintenance
+        </h3>
+
+        <div
+          class="number"
+          id="totalWarning"
+        >
+          0
+        </div>
+
       </div>
 
-      <div class="card">
-        <h3>⚠️ Overdue / Rusak</h3>
-        <div class="number" id="totalOverdue">0</div>
+
+
+      <!-- OVERDUE -->
+
+      <div
+        class="card"
+        onclick="bukaDaftarAset('overdue')"
+      >
+
+        <h3>
+          ⚠️ Overdue / Rusak
+        </h3>
+
+        <div
+          class="number"
+          id="totalOverdue"
+        >
+          0
+        </div>
+
       </div>
+
 
     </div>
 
 
-    <!-- SEARCH DAN LAPOR -->
+
+    <!-- =====================
+         SEARCH DAN LAPOR
+    ====================== -->
 
     <div class="controls">
+
 
       <input
         type="text"
@@ -373,17 +640,24 @@
         placeholder="🔍 Cari ID, nama aset, kondisi, atau status..."
       >
 
+
       <button
         class="btn-danger"
         onclick="bukaLaporan()"
       >
+
         ⚠️ Lapor Kerusakan
+
       </button>
+
 
     </div>
 
 
-    <!-- TABEL -->
+
+    <!-- =====================
+         TABEL UTAMA
+    ====================== -->
 
     <div class="table-box">
 
@@ -392,22 +666,47 @@
         <thead>
 
           <tr>
-            <th>🏷 Asset ID</th>
-            <th>📦 Nama Barang</th>
-            <th>♡ Kondisi</th>
-            <th>📅 Tanggal Periksa</th>
-            <th>⚑ Status</th>
-            <th>🔔 Alert</th>
+
+            <th>
+              🏷 Asset ID
+            </th>
+
+            <th>
+              📦 Nama Barang
+            </th>
+
+            <th>
+              ♡ Kondisi
+            </th>
+
+            <th>
+              📅 Tanggal Periksa
+            </th>
+
+            <th>
+              ⚑ Status
+            </th>
+
+            <th>
+              🔔 Alert
+            </th>
+
           </tr>
 
         </thead>
 
+
         <tbody id="tabelData">
 
           <tr>
-            <td colspan="6" class="loading">
+
+            <td
+              colspan="6"
+              class="loading"
+            >
               Memuat data...
             </td>
+
           </tr>
 
         </tbody>
@@ -415,6 +714,7 @@
       </table>
 
     </div>
+
 
 
     <p
@@ -433,10 +733,14 @@
 
     </p>
 
+
   </div>
 
 
-  <!-- MODAL LAPORAN -->
+
+  <!-- =====================
+       MODAL LAPORAN
+  ====================== -->
 
   <div
     id="modalLaporan"
@@ -445,11 +749,13 @@
 
     <div class="modal-content">
 
+
       <div class="modal-header">
 
         <h2>
           ⚠️ Lapor Kerusakan
         </h2>
+
 
         <span
           class="close"
@@ -461,6 +767,7 @@
       </div>
 
 
+
       <!-- PILIH ASET -->
 
       <div class="form-group">
@@ -468,6 +775,7 @@
         <label>
           Pilih Aset
         </label>
+
 
         <select id="laporIdAset">
 
@@ -480,6 +788,7 @@
       </div>
 
 
+
       <!-- NAMA PELAPOR -->
 
       <div class="form-group">
@@ -487,6 +796,7 @@
         <label>
           Nama Pelapor
         </label>
+
 
         <input
           type="text"
@@ -497,6 +807,7 @@
       </div>
 
 
+
       <!-- KONDISI -->
 
       <div class="form-group">
@@ -505,11 +816,13 @@
           Kondisi
         </label>
 
+
         <select id="laporKondisi">
 
           <option value="Rusak">
             Rusak
           </option>
+
 
           <option value="Perlu Maintenance">
             Perlu Maintenance
@@ -520,6 +833,7 @@
       </div>
 
 
+
       <!-- KETERANGAN -->
 
       <div class="form-group">
@@ -528,12 +842,14 @@
           Deskripsi Kerusakan
         </label>
 
+
         <textarea
           id="laporKeterangan"
           placeholder="Jelaskan kerusakan aset..."
         ></textarea>
 
       </div>
+
 
 
       <!-- FOTO -->
@@ -544,12 +860,14 @@
           📷 Foto Kerusakan
         </label>
 
+
         <input
           type="file"
           id="laporFoto"
           accept="image/*"
           onchange="previewFoto()"
         >
+
 
         <div id="previewContainer">
 
@@ -560,25 +878,127 @@
 
         </div>
 
+
         <div class="info-foto">
 
           Pilih foto kerusakan aset.
-          Foto akan dikompres otomatis agar lebih cepat dikirim.
+          Maksimal ukuran foto disarankan 5 MB.
 
         </div>
 
       </div>
 
 
-      <!-- TOMBOL -->
 
       <button
-        id="btnKirimLaporan"
         class="btn-primary"
+        id="btnKirimLaporan"
         onclick="kirimLaporan()"
       >
+
         📤 Kirim Laporan
+
       </button>
+
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================
+       MODAL DAFTAR ASET
+  ====================== -->
+
+  <div
+    id="modalDaftarAset"
+    class="modal"
+  >
+
+    <div
+      class="
+        modal-content
+        modal-large
+      "
+    >
+
+
+      <div class="modal-header">
+
+        <h2
+          id="judulDaftarAset"
+        >
+          📦 Daftar Aset
+        </h2>
+
+
+        <span
+          class="close"
+          onclick="tutupDaftarAset()"
+        >
+          ×
+        </span>
+
+      </div>
+
+
+
+      <div
+        class="info-list"
+        id="jumlahDaftarAset"
+      >
+      </div>
+
+
+
+      <div class="table-box">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Asset ID
+              </th>
+
+              <th>
+                Nama Barang
+              </th>
+
+              <th>
+                Kondisi
+              </th>
+
+              <th>
+                Tanggal Periksa
+              </th>
+
+              <th>
+                Status
+              </th>
+
+              <th>
+                Alert
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody
+            id="tabelDaftarAset"
+          >
+
+          </tbody>
+
+        </table>
+
+      </div>
+
 
     </div>
 
@@ -588,12 +1008,14 @@
 
   <script>
 
+
     // =====================================
     // URL GOOGLE APPS SCRIPT
     // =====================================
 
     const API_URL =
       "https://script.google.com/macros/s/AKfycbxx1unGPnfnuSLE_muXYrbzHKMwT0i_4f92aaPGDBcUFnU10B7RsZyLoLaBSr_qhqb1/exec";
+
 
 
     // =====================================
@@ -603,11 +1025,13 @@
     let semuaData = [];
 
 
+
     // =====================================
     // AMBIL DATA
     // =====================================
 
     async function ambilData() {
+
 
       const tabel =
         document.getElementById(
@@ -617,12 +1041,20 @@
 
       try {
 
+
         tabel.innerHTML = `
+
           <tr>
-            <td colspan="6" class="loading">
+
+            <td
+              colspan="6"
+              class="loading"
+            >
               Memuat data...
             </td>
+
           </tr>
+
         `;
 
 
@@ -643,9 +1075,7 @@
 
 
         if (
-          Array.isArray(
-            hasil
-          )
+          Array.isArray(hasil)
         ) {
 
           semuaData =
@@ -698,29 +1128,215 @@
 
       catch (error) {
 
+
         console.error(
           error
         );
 
 
         tabel.innerHTML = `
+
           <tr>
-            <td colspan="6" class="empty">
+
+            <td
+              colspan="6"
+              class="empty"
+            >
+
               ❌ Gagal mengambil data.
+
             </td>
+
           </tr>
+
         `;
 
       }
 
+
     }
 
 
+
     // =====================================
-    // TAMPILKAN DATA
+    // AMBIL NILAI ASET
+    // =====================================
+
+    function getIdAset(aset) {
+
+      return (
+        aset.id ||
+        aset.assetId ||
+        "-"
+      );
+
+    }
+
+
+
+    function getNamaAset(aset) {
+
+      return (
+        aset.nama ||
+        aset.namaAset ||
+        "-"
+      );
+
+    }
+
+
+
+    function getKondisi(aset) {
+
+      return (
+        aset.kondisi ||
+        "-"
+      );
+
+    }
+
+
+
+    function getTanggal(aset) {
+
+      return (
+        aset.tanggalPeriksa ||
+        aset.tanggal ||
+        "-"
+      );
+
+    }
+
+
+
+    function getStatus(aset) {
+
+      return (
+        aset.status ||
+        "-"
+      );
+
+    }
+
+
+
+    function getAlert(aset) {
+
+      return (
+        aset.alert ||
+        "-"
+      );
+
+    }
+
+
+
+    // =====================================
+    // CEK KATEGORI ASET
+    // =====================================
+
+    function kategoriAset(aset) {
+
+
+      const status =
+        String(
+          getStatus(aset)
+        ).toLowerCase();
+
+
+      const kondisi =
+        String(
+          getKondisi(aset)
+        ).toLowerCase();
+
+
+      // RUSAK / OVERDUE
+
+      if (
+
+        status.includes("overdue") ||
+
+        status.includes("rusak") ||
+
+        kondisi.includes("rusak") ||
+
+        kondisi.includes("broken")
+
+      ) {
+
+        return "overdue";
+
+      }
+
+
+      // MAINTENANCE
+
+      if (
+
+        status.includes("maintenance") ||
+
+        kondisi.includes("maintenance") ||
+
+        kondisi.includes("perlu maintenance")
+
+      ) {
+
+        return "maintenance";
+
+      }
+
+
+      // NORMAL
+
+      return "normal";
+
+
+    }
+
+
+
+    // =====================================
+    // CLASS BADGE
+    // =====================================
+
+    function getStatusClass(aset) {
+
+
+      const kategori =
+        kategoriAset(aset);
+
+
+      if (
+        kategori === "maintenance"
+      ) {
+
+        return "warning";
+
+      }
+
+
+      if (
+        kategori === "overdue"
+      ) {
+
+        return "overdue";
+
+      }
+
+
+      return "normal";
+
+
+    }
+
+
+
+    // =====================================
+    // TAMPILKAN DATA UTAMA
     // =====================================
 
     function tampilkanData(data) {
+
 
       const tabel =
         document.getElementById(
@@ -733,17 +1349,31 @@
 
 
       if (
+
         !data ||
+
         data.length === 0
+
       ) {
 
+
         tabel.innerHTML = `
+
           <tr>
-            <td colspan="6" class="empty">
+
+            <td
+              colspan="6"
+              class="empty"
+            >
+
               Tidak ada data.
+
             </td>
+
           </tr>
+
         `;
+
 
         return;
 
@@ -755,113 +1385,74 @@
 
 
           const id =
-            aset.id ||
-            aset.assetId ||
-            "-";
+            getIdAset(aset);
 
 
           const nama =
-            aset.nama ||
-            aset.namaAset ||
-            "-";
+            getNamaAset(aset);
 
 
           const kondisi =
-            aset.kondisi ||
-            "-";
+            getKondisi(aset);
 
 
           const tanggal =
-            aset.tanggalPeriksa ||
-            aset.tanggal ||
-            "-";
+            getTanggal(aset);
 
 
           const status =
-            aset.status ||
-            "-";
+            getStatus(aset);
 
 
           const alertData =
-            aset.alert ||
-            "-";
+            getAlert(aset);
 
 
-          let statusClass =
-            "normal";
-
-
-          const statusUpper =
-            String(
-              status
-            ).toUpperCase();
-
-
-          if (
-            statusUpper.includes(
-              "MAINTENANCE"
-            )
-          ) {
-
-            statusClass =
-              "warning";
-
-          }
-
-
-          if (
-
-            statusUpper.includes(
-              "OVERDUE"
-            )
-
-            ||
-
-            String(
-              kondisi
-            )
-            .toLowerCase()
-            .includes(
-              "rusak"
-            )
-
-            ||
-
-            String(
-              kondisi
-            )
-            .toLowerCase()
-            .includes(
-              "broken"
-            )
-
-          ) {
-
-            statusClass =
-              "overdue";
-
-          }
+          const statusClass =
+            getStatusClass(aset);
 
 
           tabel.innerHTML += `
 
             <tr>
 
-              <td>${id}</td>
-
-              <td>${nama}</td>
-
-              <td>${kondisi}</td>
-
-              <td>${tanggal}</td>
-
               <td>
-                <span class="badge ${statusClass}">
-                  ${status}
-                </span>
+                ${id}
               </td>
 
-              <td>${alertData}</td>
+
+              <td>
+                ${nama}
+              </td>
+
+
+              <td>
+                ${kondisi}
+              </td>
+
+
+              <td>
+                ${tanggal}
+              </td>
+
+
+              <td>
+
+                <span
+                  class="badge ${statusClass}"
+                >
+
+                  ${status}
+
+                </span>
+
+              </td>
+
+
+              <td>
+                ${alertData}
+              </td>
+
 
             </tr>
 
@@ -871,7 +1462,9 @@
         }
       );
 
+
     }
+
 
 
     // =====================================
@@ -879,39 +1472,6 @@
     // =====================================
 
     function updateStatistik(hasil) {
-
-
-      if (
-        hasil.statistik
-      ) {
-
-        document.getElementById(
-          "totalAset"
-        ).textContent =
-          hasil.statistik.total || 0;
-
-
-        document.getElementById(
-          "totalNormal"
-        ).textContent =
-          hasil.statistik.normal || 0;
-
-
-        document.getElementById(
-          "totalWarning"
-        ).textContent =
-          hasil.statistik.maintenance || 0;
-
-
-        document.getElementById(
-          "totalOverdue"
-        ).textContent =
-          hasil.statistik.overdue || 0;
-
-
-        return;
-
-      }
 
 
       const total =
@@ -934,63 +1494,33 @@
         function(aset) {
 
 
-          const status =
-            String(
-              aset.status || ""
-            ).toLowerCase();
-
-
-          const kondisi =
-            String(
-              aset.kondisi || ""
-            ).toLowerCase();
+          const kategori =
+            kategoriAset(aset);
 
 
           if (
-
-            status.includes(
-              "overdue"
-            )
-
-            ||
-
-            kondisi.includes(
-              "rusak"
-            )
-
-            ||
-
-            kondisi.includes(
-              "broken"
-            )
-
+            kategori === "normal"
           ) {
 
-            overdue++;
+            normal++;
 
           }
 
+
           else if (
-
-            status.includes(
-              "maintenance"
-            )
-
-            ||
-
-            kondisi.includes(
-              "maintenance"
-            )
-
+            kategori === "maintenance"
           ) {
 
             maintenance++;
 
           }
 
-          else {
 
-            normal++;
+          else if (
+            kategori === "overdue"
+          ) {
+
+            overdue++;
 
           }
 
@@ -1022,7 +1552,314 @@
       ).textContent =
         overdue;
 
+
     }
+
+
+
+    // =====================================
+    // BUKA DAFTAR ASET
+    // =====================================
+
+    function bukaDaftarAset(
+      kategori
+    ) {
+
+
+      const modal =
+        document.getElementById(
+          "modalDaftarAset"
+        );
+
+
+      const judul =
+        document.getElementById(
+          "judulDaftarAset"
+        );
+
+
+      const tabel =
+        document.getElementById(
+          "tabelDaftarAset"
+        );
+
+
+      const jumlah =
+        document.getElementById(
+          "jumlahDaftarAset"
+        );
+
+
+      let dataFilter =
+        [];
+
+
+      // ===============================
+      // TOTAL
+      // ===============================
+
+      if (
+        kategori === "total"
+      ) {
+
+
+        judul.textContent =
+          "📦 Semua Aset";
+
+
+        dataFilter =
+          semuaData;
+
+
+      }
+
+
+      // ===============================
+      // NORMAL
+      // ===============================
+
+      else if (
+        kategori === "normal"
+      ) {
+
+
+        judul.textContent =
+          "✅ Aset Normal";
+
+
+        dataFilter =
+          semuaData.filter(
+            function(aset) {
+
+              return (
+                kategoriAset(aset) ===
+                "normal"
+              );
+
+            }
+          );
+
+
+      }
+
+
+      // ===============================
+      // MAINTENANCE
+      // ===============================
+
+      else if (
+        kategori === "maintenance"
+      ) {
+
+
+        judul.textContent =
+          "🔧 Aset Maintenance";
+
+
+        dataFilter =
+          semuaData.filter(
+            function(aset) {
+
+              return (
+                kategoriAset(aset) ===
+                "maintenance"
+              );
+
+            }
+          );
+
+
+      }
+
+
+      // ===============================
+      // OVERDUE / RUSAK
+      // ===============================
+
+      else if (
+        kategori === "overdue"
+      ) {
+
+
+        judul.textContent =
+          "⚠️ Aset Overdue / Rusak";
+
+
+        dataFilter =
+          semuaData.filter(
+            function(aset) {
+
+              return (
+                kategoriAset(aset) ===
+                "overdue"
+              );
+
+            }
+          );
+
+
+      }
+
+
+      // JUMLAH
+
+      jumlah.textContent =
+
+        "Jumlah aset: " +
+
+        dataFilter.length;
+
+
+      // KOSONGKAN TABEL
+
+      tabel.innerHTML =
+        "";
+
+
+      // JIKA TIDAK ADA
+
+      if (
+        dataFilter.length === 0
+      ) {
+
+
+        tabel.innerHTML = `
+
+          <tr>
+
+            <td
+              colspan="6"
+              class="empty"
+            >
+
+              Tidak ada aset dalam kategori ini.
+
+            </td>
+
+          </tr>
+
+        `;
+
+
+      }
+
+
+      // TAMPILKAN DATA
+
+      else {
+
+
+        dataFilter.forEach(
+          function(aset) {
+
+
+            const id =
+              getIdAset(aset);
+
+
+            const nama =
+              getNamaAset(aset);
+
+
+            const kondisi =
+              getKondisi(aset);
+
+
+            const tanggal =
+              getTanggal(aset);
+
+
+            const status =
+              getStatus(aset);
+
+
+            const alertData =
+              getAlert(aset);
+
+
+            const statusClass =
+              getStatusClass(aset);
+
+
+            tabel.innerHTML += `
+
+              <tr>
+
+                <td>
+                  ${id}
+                </td>
+
+
+                <td>
+                  ${nama}
+                </td>
+
+
+                <td>
+                  ${kondisi}
+                </td>
+
+
+                <td>
+                  ${tanggal}
+                </td>
+
+
+                <td>
+
+                  <span
+                    class="badge ${statusClass}"
+                  >
+
+                    ${status}
+
+                  </span>
+
+                </td>
+
+
+                <td>
+                  ${alertData}
+                </td>
+
+
+              </tr>
+
+            `;
+
+
+          }
+        );
+
+
+      }
+
+
+      // BUKA MODAL
+
+      modal.style.display =
+        "block";
+
+
+    }
+
+
+
+    // =====================================
+    // TUTUP DAFTAR ASET
+    // =====================================
+
+    function tutupDaftarAset() {
+
+
+      document.getElementById(
+        "modalDaftarAset"
+      ).style.display =
+        "none";
+
+
+    }
+
 
 
     // =====================================
@@ -1046,20 +1883,25 @@
 
 
           const hasil =
+
             semuaData.filter(
               function(aset) {
 
 
                 const id =
-                  aset.id ||
-                  aset.assetId ||
-                  "";
+                  getIdAset(aset);
 
 
                 const nama =
-                  aset.nama ||
-                  aset.namaAset ||
-                  "";
+                  getNamaAset(aset);
+
+
+                const kondisi =
+                  getKondisi(aset);
+
+
+                const status =
+                  getStatus(aset);
 
 
                 return (
@@ -1076,17 +1918,13 @@
 
                   ||
 
-                  String(
-                    aset.kondisi || ""
-                  )
+                  String(kondisi)
                   .toLowerCase()
                   .includes(kata)
 
                   ||
 
-                  String(
-                    aset.status || ""
-                  )
+                  String(status)
                   .toLowerCase()
                   .includes(kata)
 
@@ -1107,11 +1945,13 @@
       );
 
 
+
     // =====================================
     // ISI PILIHAN ASET
     // =====================================
 
     function isiPilihanAset() {
+
 
       const pilihan =
         document.getElementById(
@@ -1120,11 +1960,9 @@
 
 
       pilihan.innerHTML =
-        `
-          <option value="">
-            -- Pilih Aset --
-          </option>
-        `;
+        `<option value="">
+          -- Pilih Aset --
+        </option>`;
 
 
       semuaData.forEach(
@@ -1132,21 +1970,21 @@
 
 
           const id =
-            aset.id ||
-            aset.assetId ||
-            "";
+            getIdAset(aset);
 
 
           const nama =
-            aset.nama ||
-            aset.namaAset ||
-            "";
+            getNamaAset(aset);
 
 
           pilihan.innerHTML += `
 
-            <option value="${id}">
+            <option
+              value="${id}"
+            >
+
               ${id} - ${nama}
+
             </option>
 
           `;
@@ -1155,7 +1993,9 @@
         }
       );
 
+
     }
+
 
 
     // =====================================
@@ -1164,12 +2004,15 @@
 
     function bukaLaporan() {
 
+
       document.getElementById(
         "modalLaporan"
       ).style.display =
         "block";
 
+
     }
+
 
 
     // =====================================
@@ -1178,12 +2021,15 @@
 
     function tutupLaporan() {
 
+
       document.getElementById(
         "modalLaporan"
       ).style.display =
         "none";
 
+
     }
+
 
 
     // =====================================
@@ -1191,6 +2037,7 @@
     // =====================================
 
     function previewFoto() {
+
 
       const input =
         document.getElementById(
@@ -1214,7 +2061,10 @@
         input.files[0];
 
 
-      if (!file) {
+      if (
+        !file
+      ) {
+
 
         container.style.display =
           "none";
@@ -1226,18 +2076,21 @@
 
         return;
 
+
       }
 
 
-      // Batasi ukuran file asli 10 MB
-
       if (
+
         file.size >
-        10 * 1024 * 1024
+
+        5 * 1024 * 1024
+
       ) {
 
+
         alert(
-          "⚠️ Ukuran foto terlalu besar. Maksimal 10 MB."
+          "⚠️ Ukuran foto terlalu besar. Maksimal 5 MB."
         );
 
 
@@ -1249,11 +2102,8 @@
           "none";
 
 
-        preview.src =
-          "";
-
-
         return;
+
 
       }
 
@@ -1265,12 +2115,14 @@
       reader.onload =
         function(e) {
 
+
           preview.src =
             e.target.result;
 
 
           container.style.display =
             "block";
+
 
         };
 
@@ -1279,17 +2131,25 @@
         file
       );
 
+
     }
 
 
+
     // =====================================
-    // KOMPRES FOTO
+    // FOTO KE BASE64
     // =====================================
 
-    function kompresFoto(file) {
+    function bacaFotoBase64(
+      file
+    ) {
+
 
       return new Promise(
-        function(resolve, reject) {
+        function(
+          resolve,
+          reject
+        ) {
 
 
           const reader =
@@ -1297,156 +2157,11 @@
 
 
           reader.onload =
-            function(event) {
-
-
-              const img =
-                new Image();
-
-
-              img.onload =
-                function() {
-
-
-                  const canvas =
-                    document.createElement(
-                      "canvas"
-                    );
-
-
-                  let width =
-                    img.width;
-
-
-                  let height =
-                    img.height;
-
-
-                  // Ukuran maksimal foto
-
-                  const maxSize =
-                    1200;
-
-
-                  if (
-
-                    width > maxSize ||
-
-                    height > maxSize
-
-                  ) {
-
-
-                    if (
-                      width > height
-                    ) {
-
-                      height =
-                        Math.round(
-
-                          height *
-
-                          maxSize /
-
-                          width
-
-                        );
-
-
-                      width =
-                        maxSize;
-
-                    }
-
-                    else {
-
-                      width =
-                        Math.round(
-
-                          width *
-
-                          maxSize /
-
-                          height
-
-                        );
-
-
-                      height =
-                        maxSize;
-
-                    }
-
-                  }
-
-
-                  canvas.width =
-                    width;
-
-
-                  canvas.height =
-                    height;
-
-
-                  const ctx =
-                    canvas.getContext(
-                      "2d"
-                    );
-
-
-                  ctx.drawImage(
-
-                    img,
-
-                    0,
-
-                    0,
-
-                    width,
-
-                    height
-
-                  );
-
-
-                  // Kompres menjadi JPEG
-                  // kualitas 70%
-
-                  const fotoBase64 =
-                    canvas.toDataURL(
-
-                      "image/jpeg",
-
-                      0.7
-
-                    );
-
-
-                  resolve(
-                    fotoBase64
-                  );
-
-
-                };
-
-
-              img.onerror =
-                function() {
-
-                  reject(
-
-                    new Error(
-                      "Gagal memproses foto"
-                    )
-
-                  );
-
-                };
-
-
-              img.src =
-                event.target.result;
-
+            function(e) {
+
+              resolve(
+                e.target.result
+              );
 
             };
 
@@ -1455,11 +2170,9 @@
             function() {
 
               reject(
-
                 new Error(
                   "Gagal membaca foto"
                 )
-
               );
 
             };
@@ -1473,14 +2186,17 @@
         }
       );
 
+
     }
 
 
+
     // =====================================
-    // KIRIM LAPORAN + FOTO
+    // KIRIM LAPORAN
     // =====================================
 
     async function kirimLaporan() {
+
 
       const idAset =
         document.getElementById(
@@ -1536,6 +2252,7 @@
 
       ) {
 
+
         alert(
           "⚠️ Mohon lengkapi laporan terlebih dahulu."
         );
@@ -1543,20 +2260,19 @@
 
         return;
 
+
       }
 
 
       try {
 
 
-        // LOADING
-
         tombol.disabled =
           true;
 
 
         tombol.textContent =
-          "⏳ Memulai...";
+          "⏳ Mengirim...";
 
 
         let fotoBase64 =
@@ -1567,81 +2283,49 @@
           "";
 
 
-        // =================================
-        // JIKA ADA FOTO
-        // =================================
-
         if (
           fileFoto
         ) {
 
-          tombol.textContent =
-            "🖼️ Memproses foto...";
-
-
-          // Kompres foto
 
           fotoBase64 =
-            await kompresFoto(
+            await bacaFotoBase64(
               fileFoto
             );
 
 
           namaFoto =
-            "foto_kerusakan.jpg";
+            fileFoto.name;
 
-
-          console.log(
-            "Foto siap dikirim. Ukuran Base64:",
-            fotoBase64.length
-          );
 
         }
 
-
-        // =================================
-        // DATA LAPORAN
-        // =================================
 
         const dataLaporan = {
 
           action:
             "lapor",
 
-
           idAset:
             idAset,
-
 
           namaPelapor:
             namaPelapor,
 
-
           kondisi:
             kondisi,
-
 
           keterangan:
             keterangan,
 
-
           fotoBase64:
             fotoBase64,
-
 
           namaFoto:
             namaFoto
 
         };
 
-
-        tombol.textContent =
-          "📤 Mengirim laporan...";
-
-
-        // =================================
-        // KIRIM KE APPS SCRIPT
-        // =================================
 
         const response =
           await fetch(
@@ -1680,10 +2364,6 @@
         );
 
 
-        // =================================
-        // BERHASIL
-        // =================================
-
         if (
           hasil.success
         ) {
@@ -1694,26 +2374,21 @@
 
 
           if (
+            hasil.fotoTerupload
+          ) {
+
+            pesan +=
+              "\n📷 Foto berhasil diupload.";
+
+          }
+
+
+          else if (
             fileFoto
           ) {
 
-            if (
-              hasil.fotoTerupload
-            ) {
-
-              pesan +=
-
-                "\n\n📷 Foto berhasil diupload ke Google Drive.";
-
-            }
-
-            else {
-
-              pesan +=
-
-                "\n\n⚠️ Laporan masuk, tetapi foto gagal diupload.";
-
-            }
+            pesan +=
+              "\n⚠️ Laporan masuk, tetapi foto gagal diupload.";
 
           }
 
@@ -1722,8 +2397,6 @@
             pesan
           );
 
-
-          // TUTUP MODAL
 
           tutupLaporan();
 
@@ -1740,6 +2413,12 @@
             "laporNamaPelapor"
           ).value =
             "";
+
+
+          document.getElementById(
+            "laporKondisi"
+          ).value =
+            "Rusak";
 
 
           document.getElementById(
@@ -1766,14 +2445,16 @@
             "none";
 
 
-          // UPDATE DATA
+          // REFRESH DATA
 
           ambilData();
 
 
         }
 
+
         else {
+
 
           alert(
 
@@ -1787,6 +2468,7 @@
 
           );
 
+
         }
 
 
@@ -1796,7 +2478,6 @@
 
 
         console.error(
-          "ERROR:",
           error
         );
 
@@ -1812,10 +2493,9 @@
 
       }
 
+
       finally {
 
-
-        // KEMBALIKAN TOMBOL
 
         tombol.disabled =
           false;
@@ -1824,13 +2504,16 @@
         tombol.textContent =
           "📤 Kirim Laporan";
 
+
       }
+
 
     }
 
 
+
     // =====================================
-    // TUTUP MODAL JIKA KLIK DI LUAR
+    // TUTUP MODAL KLIK LUAR
     // =====================================
 
     window.addEventListener(
@@ -1840,17 +2523,34 @@
       function(event) {
 
 
-        const modal =
+        const modalLaporan =
           document.getElementById(
             "modalLaporan"
           );
 
 
+        const modalDaftar =
+          document.getElementById(
+            "modalDaftarAset"
+          );
+
+
         if (
-          event.target === modal
+          event.target ===
+          modalLaporan
         ) {
 
           tutupLaporan();
+
+        }
+
+
+        if (
+          event.target ===
+          modalDaftar
+        ) {
+
+          tutupDaftarAset();
 
         }
 
@@ -1860,13 +2560,17 @@
     );
 
 
+
     // =====================================
     // MULAI
     // =====================================
 
     ambilData();
 
+
   </script>
 
+
 </body>
+
 </html>
