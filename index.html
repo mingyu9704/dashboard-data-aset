@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -56,8 +57,7 @@
 
     .cards {
       display: grid;
-      grid-template-columns:
-        repeat(4, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 15px;
       margin-bottom: 25px;
     }
@@ -66,9 +66,7 @@
       background: white;
       padding: 20px;
       border-radius: 14px;
-      box-shadow:
-        0 4px 14px
-        rgba(0,0,0,0.07);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
     }
 
     .card h3 {
@@ -117,12 +115,17 @@
       font-weight: bold;
     }
 
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
     .btn-primary {
       background: #2563eb;
       color: white;
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover:not(:disabled) {
       background: #1d4ed8;
     }
 
@@ -141,9 +144,7 @@
       background: white;
       border-radius: 14px;
       overflow-x: auto;
-      box-shadow:
-        0 4px 14px
-        rgba(0,0,0,0.07);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
     }
 
     table {
@@ -161,8 +162,7 @@
 
     td {
       padding: 13px 14px;
-      border-top:
-        1px solid #e5e7eb;
+      border-top: 1px solid #e5e7eb;
     }
 
     tr:hover {
@@ -211,8 +211,7 @@
       top: 0;
       width: 100%;
       height: 100%;
-      background:
-        rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.55);
       padding: 20px;
       overflow: auto;
     }
@@ -261,11 +260,9 @@
     textarea {
       min-height: 100px;
       padding: 12px;
-      border:
-        1px solid #d1d5db;
+      border: 1px solid #d1d5db;
       border-radius: 8px;
-      font-family:
-        Arial, sans-serif;
+      font-family: Arial, sans-serif;
     }
 
     /* FOTO */
@@ -280,8 +277,7 @@
       max-height: 250px;
       object-fit: contain;
       border-radius: 10px;
-      border:
-        1px solid #d1d5db;
+      border: 1px solid #d1d5db;
       background: #f8fafc;
     }
 
@@ -296,8 +292,7 @@
     @media (max-width: 900px) {
 
       .cards {
-        grid-template-columns:
-          repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
     }
@@ -305,8 +300,7 @@
     @media (max-width: 600px) {
 
       .cards {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
 
       .header h1 {
@@ -320,14 +314,12 @@
     }
 
   </style>
-
 </head>
 
 
 <body>
 
   <div class="container">
-
 
     <!-- HEADER -->
 
@@ -349,66 +341,23 @@
     <div class="cards">
 
       <div class="card">
-
-        <h3>
-          📦 Total Aset
-        </h3>
-
-        <div
-          class="number"
-          id="totalAset"
-        >
-          0
-        </div>
-
+        <h3>📦 Total Aset</h3>
+        <div class="number" id="totalAset">0</div>
       </div>
 
-
       <div class="card">
-
-        <h3>
-          ✅ Normal
-        </h3>
-
-        <div
-          class="number"
-          id="totalNormal"
-        >
-          0
-        </div>
-
+        <h3>✅ Normal</h3>
+        <div class="number" id="totalNormal">0</div>
       </div>
 
-
       <div class="card">
-
-        <h3>
-          🔧 Maintenance
-        </h3>
-
-        <div
-          class="number"
-          id="totalWarning"
-        >
-          0
-        </div>
-
+        <h3>🔧 Maintenance</h3>
+        <div class="number" id="totalWarning">0</div>
       </div>
 
-
       <div class="card">
-
-        <h3>
-          ⚠️ Overdue / Rusak
-        </h3>
-
-        <div
-          class="number"
-          id="totalOverdue"
-        >
-          0
-        </div>
-
+        <h3>⚠️ Overdue / Rusak</h3>
+        <div class="number" id="totalOverdue">0</div>
       </div>
 
     </div>
@@ -424,14 +373,11 @@
         placeholder="🔍 Cari ID, nama aset, kondisi, atau status..."
       >
 
-
       <button
         class="btn-danger"
         onclick="bukaLaporan()"
       >
-
         ⚠️ Lapor Kerusakan
-
       </button>
 
     </div>
@@ -446,49 +392,22 @@
         <thead>
 
           <tr>
-
-            <th>
-              🏷 Asset ID
-            </th>
-
-            <th>
-              📦 Nama Barang
-            </th>
-
-            <th>
-              ♡ Kondisi
-            </th>
-
-            <th>
-              📅 Tanggal Periksa
-            </th>
-
-            <th>
-              ⚑ Status
-            </th>
-
-            <th>
-              🔔 Alert
-            </th>
-
+            <th>🏷 Asset ID</th>
+            <th>📦 Nama Barang</th>
+            <th>♡ Kondisi</th>
+            <th>📅 Tanggal Periksa</th>
+            <th>⚑ Status</th>
+            <th>🔔 Alert</th>
           </tr>
 
         </thead>
 
-
         <tbody id="tabelData">
 
           <tr>
-
-            <td
-              colspan="6"
-              class="loading"
-            >
-
+            <td colspan="6" class="loading">
               Memuat data...
-
             </td>
-
           </tr>
 
         </tbody>
@@ -514,9 +433,7 @@
 
     </p>
 
-
   </div>
-
 
 
   <!-- MODAL LAPORAN -->
@@ -527,9 +444,6 @@
   >
 
     <div class="modal-content">
-
-
-      <!-- HEADER MODAL -->
 
       <div class="modal-header">
 
@@ -545,7 +459,6 @@
         </span>
 
       </div>
-
 
 
       <!-- PILIH ASET -->
@@ -567,7 +480,6 @@
       </div>
 
 
-
       <!-- NAMA PELAPOR -->
 
       <div class="form-group">
@@ -583,7 +495,6 @@
         >
 
       </div>
-
 
 
       <!-- KONDISI -->
@@ -609,7 +520,6 @@
       </div>
 
 
-
       <!-- KETERANGAN -->
 
       <div class="form-group">
@@ -626,8 +536,7 @@
       </div>
 
 
-
-      <!-- UPLOAD FOTO -->
+      <!-- FOTO -->
 
       <div class="form-group">
 
@@ -642,9 +551,7 @@
           onchange="previewFoto()"
         >
 
-        <div
-          id="previewContainer"
-        >
+        <div id="previewContainer">
 
           <img
             id="previewFoto"
@@ -656,25 +563,22 @@
         <div class="info-foto">
 
           Pilih foto kerusakan aset.
-          Maksimal ukuran foto disarankan 5 MB.
+          Foto akan dikompres otomatis agar lebih cepat dikirim.
 
         </div>
 
       </div>
 
 
-
-      <!-- TOMBOL KIRIM -->
+      <!-- TOMBOL -->
 
       <button
+        id="btnKirimLaporan"
         class="btn-primary"
         onclick="kirimLaporan()"
       >
-
         📤 Kirim Laporan
-
       </button>
-
 
     </div>
 
@@ -684,14 +588,12 @@
 
   <script>
 
-
     // =====================================
     // URL GOOGLE APPS SCRIPT
     // =====================================
 
     const API_URL =
       "https://script.google.com/macros/s/AKfycbxx1unGPnfnuSLE_muXYrbzHKMwT0i_4f92aaPGDBcUFnU10B7RsZyLoLaBSr_qhqb1/exec";
-
 
 
     // =====================================
@@ -701,9 +603,8 @@
     let semuaData = [];
 
 
-
     // =====================================
-    // AMBIL DATA DARI APPS SCRIPT
+    // AMBIL DATA
     // =====================================
 
     async function ambilData() {
@@ -717,20 +618,11 @@
       try {
 
         tabel.innerHTML = `
-
           <tr>
-
-            <td
-              colspan="6"
-              class="loading"
-            >
-
+            <td colspan="6" class="loading">
               Memuat data...
-
             </td>
-
           </tr>
-
         `;
 
 
@@ -751,7 +643,9 @@
 
 
         if (
-          Array.isArray(hasil)
+          Array.isArray(
+            hasil
+          )
         ) {
 
           semuaData =
@@ -810,21 +704,11 @@
 
 
         tabel.innerHTML = `
-
           <tr>
-
-            <td
-              colspan="6"
-              class="empty"
-            >
-
+            <td colspan="6" class="empty">
               ❌ Gagal mengambil data.
-              Silakan cek Apps Script.
-
             </td>
-
           </tr>
-
         `;
 
       }
@@ -832,14 +716,11 @@
     }
 
 
-
     // =====================================
     // TAMPILKAN DATA
     // =====================================
 
-    function tampilkanData(
-      data
-    ) {
+    function tampilkanData(data) {
 
       const tabel =
         document.getElementById(
@@ -857,22 +738,12 @@
       ) {
 
         tabel.innerHTML = `
-
           <tr>
-
-            <td
-              colspan="6"
-              class="empty"
-            >
-
+            <td colspan="6" class="empty">
               Tidak ada data.
-
             </td>
-
           </tr>
-
         `;
-
 
         return;
 
@@ -884,50 +755,35 @@
 
 
           const id =
-
             aset.id ||
-
             aset.assetId ||
-
             "-";
 
 
           const nama =
-
             aset.nama ||
-
             aset.namaAset ||
-
             "-";
 
 
           const kondisi =
-
             aset.kondisi ||
-
             "-";
 
 
           const tanggal =
-
             aset.tanggalPeriksa ||
-
             aset.tanggal ||
-
             "-";
 
 
           const status =
-
             aset.status ||
-
             "-";
 
 
           const alertData =
-
             aset.alert ||
-
             "-";
 
 
@@ -936,18 +792,15 @@
 
 
           const statusUpper =
-
             String(
               status
             ).toUpperCase();
 
 
           if (
-
             statusUpper.includes(
               "MAINTENANCE"
             )
-
           ) {
 
             statusClass =
@@ -994,37 +847,21 @@
 
             <tr>
 
-              <td>
-                ${id}
-              </td>
+              <td>${id}</td>
+
+              <td>${nama}</td>
+
+              <td>${kondisi}</td>
+
+              <td>${tanggal}</td>
 
               <td>
-                ${nama}
-              </td>
-
-              <td>
-                ${kondisi}
-              </td>
-
-              <td>
-                ${tanggal}
-              </td>
-
-              <td>
-
-                <span
-                  class="badge ${statusClass}"
-                >
-
+                <span class="badge ${statusClass}">
                   ${status}
-
                 </span>
-
               </td>
 
-              <td>
-                ${alertData}
-              </td>
+              <td>${alertData}</td>
 
             </tr>
 
@@ -1037,14 +874,11 @@
     }
 
 
-
     // =====================================
     // UPDATE STATISTIK
     // =====================================
 
-    function updateStatistik(
-      hasil
-    ) {
+    function updateStatistik(hasil) {
 
 
       if (
@@ -1054,33 +888,25 @@
         document.getElementById(
           "totalAset"
         ).textContent =
-
-          hasil.statistik.total ||
-          0;
+          hasil.statistik.total || 0;
 
 
         document.getElementById(
           "totalNormal"
         ).textContent =
-
-          hasil.statistik.normal ||
-          0;
+          hasil.statistik.normal || 0;
 
 
         document.getElementById(
           "totalWarning"
         ).textContent =
-
-          hasil.statistik.maintenance ||
-          0;
+          hasil.statistik.maintenance || 0;
 
 
         document.getElementById(
           "totalOverdue"
         ).textContent =
-
-          hasil.statistik.overdue ||
-          0;
+          hasil.statistik.overdue || 0;
 
 
         return;
@@ -1110,15 +936,13 @@
 
           const status =
             String(
-              aset.status ||
-              ""
+              aset.status || ""
             ).toLowerCase();
 
 
           const kondisi =
             String(
-              aset.kondisi ||
-              ""
+              aset.kondisi || ""
             ).toLowerCase();
 
 
@@ -1170,6 +994,7 @@
 
           }
 
+
         }
       );
 
@@ -1200,7 +1025,6 @@
     }
 
 
-
     // =====================================
     // SEARCH
     // =====================================
@@ -1222,26 +1046,19 @@
 
 
           const hasil =
-
             semuaData.filter(
               function(aset) {
 
 
                 const id =
-
                   aset.id ||
-
                   aset.assetId ||
-
                   "";
 
 
                 const nama =
-
                   aset.nama ||
-
                   aset.namaAset ||
-
                   "";
 
 
@@ -1249,41 +1066,32 @@
 
                   String(id)
                   .toLowerCase()
-                  .includes(
-                    kata
-                  )
+                  .includes(kata)
 
                   ||
 
                   String(nama)
                   .toLowerCase()
-                  .includes(
-                    kata
-                  )
+                  .includes(kata)
 
                   ||
 
                   String(
-                    aset.kondisi ||
-                    ""
+                    aset.kondisi || ""
                   )
                   .toLowerCase()
-                  .includes(
-                    kata
-                  )
+                  .includes(kata)
 
                   ||
 
                   String(
-                    aset.status ||
-                    ""
+                    aset.status || ""
                   )
                   .toLowerCase()
-                  .includes(
-                    kata
-                  )
+                  .includes(kata)
 
                 );
+
 
               }
             );
@@ -1299,13 +1107,11 @@
       );
 
 
-
     // =====================================
     // ISI PILIHAN ASET
     // =====================================
 
     function isiPilihanAset() {
-
 
       const pilihan =
         document.getElementById(
@@ -1314,9 +1120,11 @@
 
 
       pilihan.innerHTML =
-        `<option value="">
-          -- Pilih Aset --
-        </option>`;
+        `
+          <option value="">
+            -- Pilih Aset --
+          </option>
+        `;
 
 
       semuaData.forEach(
@@ -1324,31 +1132,21 @@
 
 
           const id =
-
             aset.id ||
-
             aset.assetId ||
-
             "";
 
 
           const nama =
-
             aset.nama ||
-
             aset.namaAset ||
-
             "";
 
 
           pilihan.innerHTML += `
 
-            <option
-              value="${id}"
-            >
-
+            <option value="${id}">
               ${id} - ${nama}
-
             </option>
 
           `;
@@ -1358,7 +1156,6 @@
       );
 
     }
-
 
 
     // =====================================
@@ -1375,7 +1172,6 @@
     }
 
 
-
     // =====================================
     // TUTUP LAPORAN
     // =====================================
@@ -1390,13 +1186,11 @@
     }
 
 
-
     // =====================================
     // PREVIEW FOTO
     // =====================================
 
     function previewFoto() {
-
 
       const input =
         document.getElementById(
@@ -1420,30 +1214,30 @@
         input.files[0];
 
 
-      if (
-        !file
-      ) {
+      if (!file) {
 
         container.style.display =
           "none";
 
+
         preview.src =
           "";
+
 
         return;
 
       }
 
 
-      // BATASI 5 MB
+      // Batasi ukuran file asli 10 MB
 
       if (
         file.size >
-        5 * 1024 * 1024
+        10 * 1024 * 1024
       ) {
 
         alert(
-          "⚠️ Ukuran foto terlalu besar. Maksimal 5 MB."
+          "⚠️ Ukuran foto terlalu besar. Maksimal 10 MB."
         );
 
 
@@ -1471,7 +1265,6 @@
       reader.onload =
         function(e) {
 
-
           preview.src =
             e.target.result;
 
@@ -1489,20 +1282,14 @@
     }
 
 
-
     // =====================================
-    // UBAH FOTO KE BASE64
+    // KOMPRES FOTO
     // =====================================
 
-    function bacaFotoBase64(
-      file
-    ) {
+    function kompresFoto(file) {
 
       return new Promise(
-        function(
-          resolve,
-          reject
-        ) {
+        function(resolve, reject) {
 
 
           const reader =
@@ -1510,11 +1297,156 @@
 
 
           reader.onload =
-            function(e) {
+            function(event) {
 
-              resolve(
-                e.target.result
-              );
+
+              const img =
+                new Image();
+
+
+              img.onload =
+                function() {
+
+
+                  const canvas =
+                    document.createElement(
+                      "canvas"
+                    );
+
+
+                  let width =
+                    img.width;
+
+
+                  let height =
+                    img.height;
+
+
+                  // Ukuran maksimal foto
+
+                  const maxSize =
+                    1200;
+
+
+                  if (
+
+                    width > maxSize ||
+
+                    height > maxSize
+
+                  ) {
+
+
+                    if (
+                      width > height
+                    ) {
+
+                      height =
+                        Math.round(
+
+                          height *
+
+                          maxSize /
+
+                          width
+
+                        );
+
+
+                      width =
+                        maxSize;
+
+                    }
+
+                    else {
+
+                      width =
+                        Math.round(
+
+                          width *
+
+                          maxSize /
+
+                          height
+
+                        );
+
+
+                      height =
+                        maxSize;
+
+                    }
+
+                  }
+
+
+                  canvas.width =
+                    width;
+
+
+                  canvas.height =
+                    height;
+
+
+                  const ctx =
+                    canvas.getContext(
+                      "2d"
+                    );
+
+
+                  ctx.drawImage(
+
+                    img,
+
+                    0,
+
+                    0,
+
+                    width,
+
+                    height
+
+                  );
+
+
+                  // Kompres menjadi JPEG
+                  // kualitas 70%
+
+                  const fotoBase64 =
+                    canvas.toDataURL(
+
+                      "image/jpeg",
+
+                      0.7
+
+                    );
+
+
+                  resolve(
+                    fotoBase64
+                  );
+
+
+                };
+
+
+              img.onerror =
+                function() {
+
+                  reject(
+
+                    new Error(
+                      "Gagal memproses foto"
+                    )
+
+                  );
+
+                };
+
+
+              img.src =
+                event.target.result;
+
 
             };
 
@@ -1523,9 +1455,11 @@
             function() {
 
               reject(
+
                 new Error(
                   "Gagal membaca foto"
                 )
+
               );
 
             };
@@ -1542,13 +1476,11 @@
     }
 
 
-
     // =====================================
     // KIRIM LAPORAN + FOTO
     // =====================================
 
     async function kirimLaporan() {
-
 
       const idAset =
         document.getElementById(
@@ -1586,6 +1518,12 @@
         inputFoto.files[0];
 
 
+      const tombol =
+        document.getElementById(
+          "btnKirimLaporan"
+        );
+
+
       // VALIDASI
 
       if (
@@ -1611,6 +1549,16 @@
       try {
 
 
+        // LOADING
+
+        tombol.disabled =
+          true;
+
+
+        tombol.textContent =
+          "⏳ Memulai...";
+
+
         let fotoBase64 =
           "";
 
@@ -1619,64 +1567,67 @@
           "";
 
 
+        // =================================
         // JIKA ADA FOTO
+        // =================================
 
         if (
           fileFoto
         ) {
 
-          // CEK UKURAN LAGI
-
-          if (
-
-            fileFoto.size >
-            5 * 1024 * 1024
-
-          ) {
-
-            alert(
-              "⚠️ Ukuran foto maksimal 5 MB."
-            );
+          tombol.textContent =
+            "🖼️ Memproses foto...";
 
 
-            return;
-
-          }
-
+          // Kompres foto
 
           fotoBase64 =
-            await bacaFotoBase64(
+            await kompresFoto(
               fileFoto
             );
 
 
           namaFoto =
-            fileFoto.name;
+            "foto_kerusakan.jpg";
+
+
+          console.log(
+            "Foto siap dikirim. Ukuran Base64:",
+            fotoBase64.length
+          );
 
         }
 
 
-        // DATA YANG DIKIRIM
+        // =================================
+        // DATA LAPORAN
+        // =================================
 
         const dataLaporan = {
 
           action:
             "lapor",
 
+
           idAset:
             idAset,
+
 
           namaPelapor:
             namaPelapor,
 
+
           kondisi:
             kondisi,
+
 
           keterangan:
             keterangan,
 
+
           fotoBase64:
             fotoBase64,
+
 
           namaFoto:
             namaFoto
@@ -1684,12 +1635,13 @@
         };
 
 
-        console.log(
-          "Mengirim laporan..."
-        );
+        tombol.textContent =
+          "📤 Mengirim laporan...";
 
 
+        // =================================
         // KIRIM KE APPS SCRIPT
+        // =================================
 
         const response =
           await fetch(
@@ -1728,24 +1680,46 @@
         );
 
 
+        // =================================
+        // BERHASIL
+        // =================================
+
         if (
           hasil.success
         ) {
 
 
+          let pesan =
+            "✅ Laporan berhasil dikirim!";
+
+
+          if (
+            fileFoto
+          ) {
+
+            if (
+              hasil.fotoTerupload
+            ) {
+
+              pesan +=
+
+                "\n\n📷 Foto berhasil diupload ke Google Drive.";
+
+            }
+
+            else {
+
+              pesan +=
+
+                "\n\n⚠️ Laporan masuk, tetapi foto gagal diupload.";
+
+            }
+
+          }
+
+
           alert(
-            "✅ Laporan berhasil dikirim!" +
-
-            (
-              hasil.linkFoto
-              ?
-
-              "\n📷 Foto juga berhasil diupload."
-
-              :
-
-              ""
-            )
+            pesan
           );
 
 
@@ -1792,7 +1766,7 @@
             "none";
 
 
-          // AMBIL DATA LAGI
+          // UPDATE DATA
 
           ambilData();
 
@@ -1800,7 +1774,6 @@
         }
 
         else {
-
 
           alert(
 
@@ -1814,7 +1787,6 @@
 
           );
 
-
         }
 
 
@@ -1824,21 +1796,37 @@
 
 
         console.error(
+          "ERROR:",
           error
         );
 
 
         alert(
+
           "❌ Terjadi kesalahan saat mengirim laporan.\n\n" +
+
           error.message
+
         );
 
 
       }
 
+      finally {
+
+
+        // KEMBALIKAN TOMBOL
+
+        tombol.disabled =
+          false;
+
+
+        tombol.textContent =
+          "📤 Kirim Laporan";
+
+      }
 
     }
-
 
 
     // =====================================
@@ -1859,8 +1847,7 @@
 
 
         if (
-          event.target ===
-          modal
+          event.target === modal
         ) {
 
           tutupLaporan();
@@ -1873,13 +1860,11 @@
     );
 
 
-
     // =====================================
-    // MULAI AMBIL DATA
+    // MULAI
     // =====================================
 
     ambilData();
-
 
   </script>
 
