@@ -2383,12 +2383,11 @@
           }
 
 
-          else if (
-            fileFoto
-          ) {
+          else if (fileFoto) {
 
             pesan +=
-              "\n⚠️ Laporan masuk, tetapi foto gagal diupload.";
+              "\n⚠️ Foto gagal diupload.\n\n" +
+              (hasil.message || "Alasan error tidak dikirim oleh server.");
 
           }
 
